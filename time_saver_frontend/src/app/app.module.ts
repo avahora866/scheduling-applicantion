@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { CalanderComponent } from './components/home/calander/calander.component';
+import { DateComponent } from './components/home/calander/date/date.component';
+import { ItemComponent } from './components/home/calander/date/item/item.component';
 
 
 @NgModule({
@@ -14,6 +17,9 @@ import { HomeComponent } from './components/home/home.component';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
+    CalanderComponent,
+    DateComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
