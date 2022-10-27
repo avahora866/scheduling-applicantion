@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CalanderComponent } from './components/home/calander/calander.component';
 import { DateComponent } from './components/home/calander/date/date.component';
 import { ItemComponent } from './components/home/calander/date/item/item.component';
+import { SidebarComponent } from './components/home/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ItemComponent } from './components/home/calander/date/item/item.compone
     CalanderComponent,
     DateComponent,
     ItemComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
