@@ -11,6 +11,7 @@ import { DateComponent } from './components/home/calander/date/date.component';
 import { ItemComponent } from './components/home/calander/date/item/item.component';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
 import { AccountComponent } from './components/account/account.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -24,13 +25,15 @@ import { AccountComponent } from './components/account/account.component';
     ItemComponent,
     SidebarComponent,
     AccountComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
       {path: 'login', component: LoginComponent},
-      {path: 'account', component:AccountComponent}
+      {path: 'account', component:AccountComponent},
+      {path: 'register', component: RegisterComponent}
     ])
   ],
   providers: [],
