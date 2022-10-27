@@ -10,6 +10,7 @@ import { CalanderComponent } from './components/home/calander/calander.component
 import { DateComponent } from './components/home/calander/date/date.component';
 import { ItemComponent } from './components/home/calander/date/item/item.component';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
+import { AccountComponent } from './components/account/account.component';
 
 
 @NgModule({
@@ -22,12 +23,14 @@ import { SidebarComponent } from './components/home/sidebar/sidebar.component';
     DateComponent,
     ItemComponent,
     SidebarComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
-      {path: 'login', component: LoginComponent}
+      {path: 'login', component: LoginComponent},
+      {path: 'account', component:AccountComponent}
     ])
   ],
   providers: [],
