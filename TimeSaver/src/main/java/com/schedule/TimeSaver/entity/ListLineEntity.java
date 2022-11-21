@@ -16,7 +16,8 @@ import java.util.UUID;
 public class ListLineEntity {
     @Id
     @Column(name = "LIST_LINE_ID")
-    private UUID listLineID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer listLineID;
 
     @OneToOne
     @JoinColumn(name = "USER_ID")

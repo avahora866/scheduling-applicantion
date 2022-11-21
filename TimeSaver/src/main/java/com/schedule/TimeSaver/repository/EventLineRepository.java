@@ -4,5 +4,7 @@ import com.schedule.TimeSaver.entity.EventLineEntity;
 import com.schedule.TimeSaver.entity.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface EventLineRepository extends CrudRepository<EventLineEntity, Integer> {
+import java.util.UUID;
+
+public interface EventLineRepository extends CrudRepository<EventLineEntity, UUID> {
 }

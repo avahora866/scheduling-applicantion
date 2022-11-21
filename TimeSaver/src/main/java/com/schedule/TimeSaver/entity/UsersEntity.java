@@ -3,6 +3,7 @@ package com.schedule.TimeSaver.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -15,7 +16,8 @@ import java.util.UUID;
 public class UsersEntity {
     @Id
     @Column(name = "USER_ID")
-    private UUID userID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userID;
 
     @Column(name = "FIRST_NAME")
     private String firstName;

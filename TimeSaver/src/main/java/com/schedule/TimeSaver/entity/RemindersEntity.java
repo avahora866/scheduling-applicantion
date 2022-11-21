@@ -16,7 +16,8 @@ import java.util.UUID;
 public class RemindersEntity {
     @Id
     @Column(name = "REMINDER_ID")
-    private UUID reminderID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer reminderID;
 
     @ManyToOne
     @JoinColumn(name="reminder_LINE_ID")

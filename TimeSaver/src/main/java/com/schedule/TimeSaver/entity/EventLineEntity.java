@@ -16,7 +16,8 @@ import java.util.UUID;
 public class EventLineEntity {
     @Id
     @Column(name = "EVENT_LINE_ID")
-    private UUID eventLineID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer eventLineID;
 
     @OneToOne
     @JoinColumn(name = "USER_ID")

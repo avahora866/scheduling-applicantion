@@ -4,5 +4,7 @@ import com.schedule.TimeSaver.entity.ListLineEntity;
 import com.schedule.TimeSaver.entity.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ListLineRepository extends CrudRepository<ListLineEntity, Integer> {
+import java.util.UUID;
+
+public interface ListLineRepository extends CrudRepository<ListLineEntity, UUID> {
 }

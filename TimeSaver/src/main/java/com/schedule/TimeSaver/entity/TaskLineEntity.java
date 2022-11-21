@@ -16,7 +16,8 @@ import java.util.UUID;
 public class TaskLineEntity {
     @Id
     @Column(name = "TASK_LINE_ID")
-    private UUID taskLineID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer taskLineID;
 
     @OneToOne
     @JoinColumn(name = "USER_ID")

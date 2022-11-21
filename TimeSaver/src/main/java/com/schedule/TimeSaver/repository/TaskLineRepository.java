@@ -4,5 +4,7 @@ import com.schedule.TimeSaver.entity.TaskLineEntity;
 import com.schedule.TimeSaver.entity.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface TaskLineRepository extends CrudRepository<TaskLineEntity, Integer> {
+import java.util.UUID;
+
+public interface TaskLineRepository extends CrudRepository<TaskLineEntity, UUID> {
 }

@@ -4,5 +4,7 @@ import com.schedule.TimeSaver.entity.RemindersEntity;
 import com.schedule.TimeSaver.entity.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RemindersRepository extends CrudRepository<RemindersEntity, Integer> {
+import java.util.UUID;
+
+public interface RemindersRepository extends CrudRepository<RemindersEntity, UUID> {
 }
