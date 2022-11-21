@@ -19,12 +19,12 @@ public class ListEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer listID;
 
+    @Column(name = "LISTNAME")
+    private String name;
+
     @ManyToOne
     @JoinColumn(name="LIST_LINE_ID")
     private ListLineEntity listLine;
-
-    @Column(name = "NAME")
-    private String name;
 
     @OneToMany(mappedBy = "list")
     private List<TasksEntity> tasks;
