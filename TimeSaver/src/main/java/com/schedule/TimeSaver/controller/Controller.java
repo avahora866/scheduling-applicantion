@@ -1,13 +1,24 @@
 package com.schedule.TimeSaver.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.schedule.TimeSaver.entity.*;
 import com.schedule.TimeSaver.repository.*;
+import com.schedule.TimeSaver.request.LoginDetails;
+import com.schedule.TimeSaver.request.RegisterDetails;
+import com.schedule.TimeSaver.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Component
+@CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
+
     @Autowired
     private UsersRepository userRepo;
     @Autowired
@@ -26,5 +37,57 @@ public class Controller {
     private EventsRepository eventsRepo;
     @Autowired
     private EventLineRepository eventLineRepo;
+
+
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome() {
+        return "Welcome to RestTemplate Example.";
+    }
+
+    @PostMapping(path = "/login" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<UserResponse> verifyLogin(@RequestBody LoginDetails loginDetails ) {
+        if(loginDetails.getUserName().isEmpty()){
+            if(userRepo.findByEmailAndPassword(loginDetails.getEmail(), loginDetails.getPassword()).isPresent()) {
+                int id = userRepo.findByEmailAndPassword(loginDetails.getEmail(), loginDetails.getPassword()).get().getUserID();
+                UsersEntity user = userRepo.findById(id).get();
+                UserResponse response =  userMapper(user);
+                return ResponseEntity.ok(response);
+            }else{
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        }else{
+            if(userRepo.findByUsernameAndPassword(loginDetails.getUserName(), loginDetails.getPassword()).isPresent()) {
+                int id = userRepo.findByUsernameAndPassword(loginDetails.getUserName(), loginDetails.getPassword()).get().getUserID();
+                UsersEntity user = userRepo.findById(id).get();
+                UserResponse response =  userMapper(user);
+                return ResponseEntity.ok(response);
+            }else{
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
+    private UserResponse userMapper(Object object) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        UserResponse response = mapper.convertValue(object, UserResponse.class);
+        return response;
+    }
+
+    @PostMapping(path = "/register" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<UserResponse> createUser(@RequestBody RegisterDetails registerDetails) {
+        UsersEntity user = new UsersEntity(registerDetails.getFirstName(), registerDetails.getLastName(), registerDetails.getEmail(), registerDetails.getUsername(), registerDetails.getPassword());
+        UsersEntity userAdded= userRepo.save(user);
+        taskLineRepo.save(new TaskLineEntity(userAdded));
+        reminderLineRepo.save(new ReminderLineEntity(userAdded));
+        listLineRepo.save(new ListLineEntity(userAdded));
+        eventLineRepo.save(new EventLineEntity(userAdded));
+        UserResponse response = userMapper(user);
+        return ResponseEntity.ok(response);
+    }
+    
 
 }
