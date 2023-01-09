@@ -1,5 +1,7 @@
 package com.schedule.TimeSaver.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,4 +29,7 @@ public class TaskLineEntity {
     @OneToMany(mappedBy = "taskLine")
     private List<TasksEntity> tasks;
 
+    public TaskLineEntity(UsersEntity user) {
+        this.user = user;
+    }
 }
