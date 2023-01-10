@@ -7,8 +7,10 @@ import com.schedule.TimeSaver.repository.*;
 import com.schedule.TimeSaver.request.ListDetails;
 import com.schedule.TimeSaver.request.LoginDetails;
 import com.schedule.TimeSaver.request.RegisterDetails;
+import com.schedule.TimeSaver.request.TaskDetails;
 import com.schedule.TimeSaver.response.ListResponse;
 import com.schedule.TimeSaver.response.UserResponse;
+import javafx.concurrent.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -127,6 +129,26 @@ public class Controller {
 //        ListResponse response = mapper.convertValue(object, ListResponse.class);
         return response;
     }
+
+
+    @PostMapping(path = "/create-task" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> createTask(@RequestBody TaskDetails taskDetails) {
+        Optional<UsersEntity> user = userRepo.findById(taskDetails.getUserId());
+        Optional<TaskLineEntity> taskLine = taskLineRepo.findByUser(user.get());
+        Optional<ListEntity> list = listRepo.findByName(taskDetails.getListName());
+
+
+        TasksEntity task = new TasksEntity(taskLine.get(), list.get(), taskDetails.getName(), taskDetails.getDescription(), taskDetails.getColor(), taskDetails.getRepeating(), taskDetails.getDate());
+        TasksEntity tasksEntity = tasksRepo.save(task);
+        return new ResponseEntity<>("taskAdded", HttpStatus.OK);
+
+    }
+
+
+
+
+
     
 
 }
