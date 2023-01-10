@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schedule.TimeSaver.entity.*;
 import com.schedule.TimeSaver.repository.*;
+import com.schedule.TimeSaver.request.ListDetails;
 import com.schedule.TimeSaver.request.LoginDetails;
 import com.schedule.TimeSaver.request.RegisterDetails;
+import com.schedule.TimeSaver.response.ListResponse;
 import com.schedule.TimeSaver.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Component
@@ -87,6 +93,39 @@ public class Controller {
         eventLineRepo.save(new EventLineEntity(userAdded));
         UserResponse response = userMapper(user);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(path = "/create-list" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> createList(@RequestBody ListDetails listDetails) {
+        Optional<UsersEntity> user = userRepo.findById(listDetails.getUserId());
+        Optional<ListLineEntity> listLine = listLineRepo.findByUser(user.get());
+
+        ListEntity list = new ListEntity(listDetails.getName(), listLine.get());
+        ListEntity listAdded = listRepo.save(list);
+        return new ResponseEntity<>("listAdded", HttpStatus.OK);
+
+    }
+
+    private ListResponse listMapper(ListEntity object) {
+        if (object.getTasks() == null){
+            List<TasksEntity> tasks = new ArrayList<TasksEntity>();
+            object.setTasks(tasks);
+        }
+        if (object.getEvents() == null){
+            List<EventsEntity> events = new ArrayList<EventsEntity>();
+            object.setEvents(events);
+        }
+
+        ListResponse response = new ListResponse(object.getListID(), object.getName(), object.getListLine(), object.getTasks(), object.getEvents());
+
+
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+//        mapper.disable(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES);
+//
+//        ListResponse response = mapper.convertValue(object, ListResponse.class);
+        return response;
     }
     
 

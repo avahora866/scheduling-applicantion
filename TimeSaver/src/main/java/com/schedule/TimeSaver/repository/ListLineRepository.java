@@ -4,7 +4,10 @@ import com.schedule.TimeSaver.entity.ListLineEntity;
 import com.schedule.TimeSaver.entity.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ListLineRepository extends CrudRepository<ListLineEntity, UUID> {
+    Optional<ListLineEntity> findByUser(UsersEntity user);
+
 }

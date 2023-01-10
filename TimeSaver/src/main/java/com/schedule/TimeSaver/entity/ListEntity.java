@@ -32,4 +32,9 @@ public class ListEntity {
 
     @OneToMany(mappedBy = "list")
     private List<EventsEntity> events;
+
+    public ListEntity(String name, ListLineEntity listLine) {
+        this.name = name;
+        this.listLine = listLine;
+    }
 }
