@@ -1,27 +1,34 @@
 INSERT INTO USERS (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) VALUES
     ('jdoe@hotmail.com', 'Jhon', 'Doe', 'password', 'JDoe'),
     ('jsmith@hotmail.com', 'Jane', 'Smith', 'password', 'JSmith'),
-    ('dfrancis@hotmail.com', 'Davide', 'Francis', 'password', 'DFrancis');
+    ('dfrancis@hotmail.com', 'Davide', 'Francis', 'password', 'DFrancis'),
+    ('alyon@hotmail.com', 'Andrew', 'Lyon', 'password', 'ALyon');
+;
+
 
 INSERT INTO TASKLINE (USER_ID) VALUES
     (1),
     (2),
-    (3);
+    (3),
+    (4);
 
 INSERT INTO REMINDERLINE (USER_ID) VALUES
     (1),
     (2),
-    (3);
+    (3),
+    (4);
 
 INSERT INTO EVENTLINE (USER_ID) VALUES
     (1),
     (2),
-    (3);
+    (3),
+    (4);
 
 INSERT INTO LISTLINE (USER_ID) VALUES
     (1),
     (2),
-    (3);
+    (3),
+    (4);
 
 INSERT INTO LIST (LISTNAME, LIST_LINE_ID) VALUES
     ('JDoes List 1', 1),
