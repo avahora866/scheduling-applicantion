@@ -45,4 +45,13 @@ public class TasksEntity {
     @Column(name = "DATE")
     private LocalDateTime date;
 
+    public TasksEntity(TaskLineEntity taskLine, ListEntity list, String name, String description, String color, Boolean repeating, LocalDateTime date) {
+        this.taskLine = taskLine;
+        this.list = list;
+        this.name = name;
+        this.description = description;
+        this.color = color;
+        this.repeating = repeating;
+        this.date = date;
+    }
 }

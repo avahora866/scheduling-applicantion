@@ -40,4 +40,12 @@ public class RemindersEntity {
 //    @DateTimeFormat(pattern="dd/MM/yyyy")
     private LocalDateTime date;
 
+    public RemindersEntity(ReminderLineEntity reminderLine, String name, String description, String color, Boolean repeating, LocalDateTime date) {
+        this.reminderLine = reminderLine;
+        this.name = name;
+        this.description = description;
+        this.color = color;
+        this.repeating = repeating;
+        this.date = date;
+    }
 }
