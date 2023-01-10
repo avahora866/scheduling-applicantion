@@ -156,6 +156,22 @@ public class Controller {
 
     }
 
+    @PostMapping(path = "/create-reminder" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> createReminder(@RequestBody ReminderDetails reminderDetails) {
+        Optional<UsersEntity> user = userRepo.findById(reminderDetails.getUserId());
+        Optional<ReminderLineEntity> reminderLine = reminderLineRepo.findByUser(user.get());
+
+
+        RemindersEntity reminder = new RemindersEntity(reminderLine.get(), reminderDetails.getName(), reminderDetails.getDescription(), reminderDetails.getColor(), reminderDetails.getRepeating(), reminderDetails.getDate());
+        RemindersEntity remindersEntity = remindersRepo.save(reminder);
+        return new ResponseEntity<>("reminderAdded", HttpStatus.OK);
+
+    }
+
+
+
+
 
 
 
