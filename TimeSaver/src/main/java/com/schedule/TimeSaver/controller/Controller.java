@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schedule.TimeSaver.entity.*;
 import com.schedule.TimeSaver.repository.*;
-import com.schedule.TimeSaver.request.ListDetails;
-import com.schedule.TimeSaver.request.LoginDetails;
-import com.schedule.TimeSaver.request.RegisterDetails;
-import com.schedule.TimeSaver.request.TaskDetails;
+import com.schedule.TimeSaver.request.*;
 import com.schedule.TimeSaver.response.ListResponse;
 import com.schedule.TimeSaver.response.UserResponse;
 import javafx.concurrent.Task;
@@ -142,6 +139,20 @@ public class Controller {
         TasksEntity task = new TasksEntity(taskLine.get(), list.get(), taskDetails.getName(), taskDetails.getDescription(), taskDetails.getColor(), taskDetails.getRepeating(), taskDetails.getDate());
         TasksEntity tasksEntity = tasksRepo.save(task);
         return new ResponseEntity<>("taskAdded", HttpStatus.OK);
+
+    }
+
+    @PostMapping(path = "/create-event" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> createEvent(@RequestBody EventDetails eventDetails) {
+        Optional<UsersEntity> user = userRepo.findById(eventDetails.getUserId());
+        Optional<EventLineEntity> eventLine = eventLineRepo.findByUser(user.get());
+        Optional<ListEntity> list = listRepo.findByName(eventDetails.getListName());
+
+
+        EventsEntity event = new EventsEntity(eventLine.get(), list.get(), eventDetails.getName(), eventDetails.getDescription(), eventDetails.getColor(), eventDetails.getRepeating(), eventDetails.getDate());
+        EventsEntity eventsEntity = eventsRepo.save(event);
+        return new ResponseEntity<>("eventAdded", HttpStatus.OK);
 
     }
 

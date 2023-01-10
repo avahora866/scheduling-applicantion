@@ -44,4 +44,13 @@ public class EventsEntity {
     @Column(name = "DATE")
     private LocalDateTime date;
 
+    public EventsEntity(EventLineEntity eventLine, ListEntity list, String name, String description, String color, Boolean repeating, LocalDateTime date) {
+        this.eventLine = eventLine;
+        this.list = list;
+        this.name = name;
+        this.description = description;
+        this.color = color;
+        this.repeating = repeating;
+        this.date = date;
+    }
 }
